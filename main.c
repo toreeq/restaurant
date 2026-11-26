@@ -8,7 +8,7 @@ int jmlUser = 0;
 char namaMenu[20][30];
 char namaMakanan[20][30];
 char namaMinuman[20][30];
-int hargaMenu[20], adaMenu[20];
+int hargaMenu[20], hargaMakanan[20], hargaMinuman[20], adaMenu[20];
 int jmlMenu = 0;
 
 char kodeDiskon[10][20];
@@ -96,6 +96,9 @@ void dataAwal()
     {
         adaMenu[i] = 1;
     }
+
+    strcpy(namaMinuman[0], "Air Mineral");
+    harga
 
     strcpy(kodeDiskon[0], "HEMAT10");
     persenDiskon[0] = 10;
