@@ -9,7 +9,7 @@ char namaMenu[20][30];
 char namaMakanan[20][30];
 char namaMinuman[20][30];
 int hargaMenu[20], hargaMakanan[20], hargaMinuman[20], adaMenu[20];
-int jmlMenu = 0;
+int jmlMenu = 0, jmlMakanan = 0, jmlMinuman = 0;
 
 char kodeDiskon[10][20];
 int persenDiskon[10], aktifDiskon[10];
@@ -109,6 +109,7 @@ void dataAwal()
     hargaMinuman[4] = 10000;
     strcpy(namaMinuman[5], "Es Campur");
     hargaMinuman[5] = 12000;
+    
 
     strcpy(kodeDiskon[0], "HEMAT10");
     persenDiskon[0] = 10;
