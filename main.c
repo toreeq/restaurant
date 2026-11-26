@@ -109,6 +109,8 @@ void dataAwal()
     hargaMinuman[4] = 10000;
     strcpy(namaMinuman[5], "Es Campur");
     hargaMinuman[5] = 12000;
+    strcpy(namaMinuman[6], "Es Cokelat");
+    hargaMinuman[6] = 8000;
     
 
     strcpy(kodeDiskon[0], "HEMAT10");
