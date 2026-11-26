@@ -29,74 +29,104 @@ char kode[20] = "";
 
 int userLogin = -1;
 
-void garis() {
+void garis()
+{
     printf("------------------------------------------------------------\n");
 }
 
-int inputAngka(int min, int max) {
+int inputAngka(int min, int max)
+{
     int x;
-    while (1) {
-        if (scanf("%d", &x) != 1) {
-            while (getchar() != '\n');
-        } else if (x >= min && x <= max) {
+    while (1)
+    {
+        if (scanf("%d", &x) != 1)
+        {
+            while (getchar() != '\n')
+                ;
+        }
+        else if (x >= min && x <= max)
+        {
             return x;
         }
         printf("Input salah, masukkan angka %d sampai %d: ", min, max);
     }
 }
 
-int cariUser(char *nama) {
+int cariUser(char *nama)
+{
     int i;
-    for (i = 0; i < jmlUser; i++) {
-        if (strcmp(username[i], nama) == 0) {
+    for (i = 0; i < jmlUser; i++)
+    {
+        if (strcmp(username[i], nama) == 0)
+        {
             return i;
         }
     }
     return -1;
 }
 
-void dataAwal() {
+void dataAwal()
+{
     strcpy(username[0], "admin");
     strcpy(password[0], "admin123");
     isAdmin[0] = 1;
     jmlUser = 1;
 
-    strcpy(namaMenu[0], "Nasi Goreng Spesial"); hargaMenu[0] = 25000;
-    strcpy(namaMenu[1], "Ayam Geprek");         hargaMenu[1] = 22000;
-    strcpy(namaMenu[2], "Mie Goreng");          hargaMenu[2] = 18000;
-    strcpy(namaMenu[3], "Soto Ayam");           hargaMenu[3] = 20000;
-    strcpy(namaMenu[4], "Kentang Goreng");      hargaMenu[4] = 15000;
-    strcpy(namaMenu[5], "Es Teh");              hargaMenu[5] = 5000;
-    strcpy(namaMenu[6], "Jus Jeruk");           hargaMenu[6] = 10000;
-    strcpy(namaMenu[7], "Air Mineral");         hargaMenu[7] = 4000;
+    strcpy(namaMenu[0], "Ayam Malay");
+    hargaMenu[0] = 25000;
+    strcpy(namaMenu[1], "Ayam Geprek Cibus");
+    hargaMenu[1] = 22000;
+    strcpy(namaMenu[2], "Pecel Ayam");
+    hargaMenu[2] = 18000;
+    strcpy(namaMenu[3], "Soto Ayam");
+    hargaMenu[3] = 20000;
+    strcpy(namaMenu[4], "Nais Krawu");
+    hargaMenu[4] = 15000;
+    strcpy(namaMenu[5], "Es Teh");
+    hargaMenu[5] = 5000;
+    strcpy(namaMenu[6], "Jus Jeruk");
+    hargaMenu[6] = 10000;
+    strcpy(namaMenu[7], "Air Mineral");
+    hargaMenu[7] = 4000;
     jmlMenu = 8;
     int i;
-    for (i = 0; i < jmlMenu; i++) {
+    for (i = 0; i < jmlMenu; i++)
+    {
         adaMenu[i] = 1;
     }
 
-    strcpy(kodeDiskon[0], "HEMAT10"); persenDiskon[0] = 10; aktifDiskon[0] = 1;
-    strcpy(kodeDiskon[1], "MAKAN20"); persenDiskon[1] = 20; aktifDiskon[1] = 1;
+    strcpy(kodeDiskon[0], "HEMAT10");
+    persenDiskon[0] = 10;
+    aktifDiskon[0] = 1;
+    strcpy(kodeDiskon[1], "MAKAN20");
+    persenDiskon[1] = 20;
+    aktifDiskon[1] = 1;
     jmlDiskon = 2;
 }
 
-int dashboard() {
+int dashboard()
+{
     int i, total = 0;
     float rata = 0;
 
-    for (i = 0; i < jmlRating; i++) {
+    for (i = 0; i < jmlRating; i++)
+    {
         total = total + rating[i];
     }
-    if (jmlRating > 0) {
+    if (jmlRating > 0)
+    {
         rata = (float)total / jmlRating;
     }
 
     garis();
     printf("                 RESTORAN NUSANTARA\n");
     garis();
-    if (jmlRating > 0) {
+    if (jmlRating > 0)
+    {
         printf("Rating restoran: %.1f/5 (%d penilaian)\n", rata, jmlRating);
-    } else {
+    }
+    else
+    {
         printf("Belum ada rating.\n");
     }
     garis();
@@ -107,7 +137,8 @@ int dashboard() {
     return inputAngka(0, 2);
 }
 
-int login() {
+int login()
+{
     char nama[20], pass[20];
     int idx;
 
@@ -116,23 +147,27 @@ int login() {
     garis();
     printf("Username (0 untuk kembali): ");
     scanf("%19s", nama);
-    if (strcmp(nama, "0") == 0) {
+    if (strcmp(nama, "0") == 0)
+    {
         return 0;
     }
 
     idx = cariUser(nama);
-    if (idx == -1) {
+    if (idx == -1)
+    {
         printf("Username tidak ditemukan!\n");
         return 0;
     }
-    if (diban[idx] == 1) {
+    if (diban[idx] == 1)
+    {
         printf("Akun kamu diblokir. Hubungi admin untuk unban.\n");
         return 0;
     }
 
     printf("Password: ");
     scanf("%19s", pass);
-    if (strcmp(pass, password[idx]) == 0) {
+    if (strcmp(pass, password[idx]) == 0)
+    {
         salah[idx] = 0;
         userLogin = idx;
         printf("Login berhasil, selamat datang %s!\n", username[idx]);
@@ -140,32 +175,39 @@ int login() {
     }
 
     salah[idx]++;
-    if (salah[idx] > 3) {
+    if (salah[idx] > 3)
+    {
         diban[idx] = 1;
         printf("Password salah lagi. Akun kamu diblokir!\n");
-    } else {
+    }
+    else
+    {
         printf("Password salah! Percobaan %d dari 3\n", salah[idx]);
-        if (salah[idx] == 3) {
+        if (salah[idx] == 3)
+        {
             printf("Kalau salah lagi, akun akan diblokir.\n");
         }
     }
     return 0;
 }
 
-void registerUser() {
+void registerUser()
+{
     char nama[20], pass[20];
 
     garis();
     printf("                        REGISTER\n");
     garis();
-    if (jmlUser >= 50) {
+    if (jmlUser >= 50)
+    {
         printf("Data user penuh.\n");
         return;
     }
 
     printf("Username baru: ");
     scanf("%19s", nama);
-    while (cariUser(nama) != -1) {
+    while (cariUser(nama) != -1)
+    {
         printf("Username sudah dipakai, coba yang lain: ");
         scanf("%19s", nama);
     }
@@ -181,7 +223,8 @@ void registerUser() {
     printf("Register berhasil, silakan login.\n");
 }
 
-void logout() {
+void logout()
+{
     garis();
     printf("Kamu sudah logout.\n");
     printf("Kembali ke dashboard...\n");
@@ -189,39 +232,49 @@ void logout() {
     userLogin = -1;
 }
 
-void tampilMenu() {
+void tampilMenu()
+{
     int i;
     garis();
     printf("                         DAFTAR MENU\n");
     garis();
     printf("%-4s %-25s %-12s %s\n", "ID", "Nama", "Harga", "Status");
     garis();
-    for (i = 0; i < jmlMenu; i++) {
+    for (i = 0; i < jmlMenu; i++)
+    {
         printf("%-4d %-25s Rp%-10d ", i + 1, namaMenu[i], hargaMenu[i]);
-        if (adaMenu[i] == 1) {
+        if (adaMenu[i] == 1)
+        {
             printf("Tersedia\n");
-        } else {
+        }
+        else
+        {
             printf("Habis\n");
         }
     }
     garis();
 }
 
-void pilihMenu() {
+void pilihMenu()
+{
     int id, qty, i;
 
-    while (1) {
+    while (1)
+    {
         tampilMenu();
         printf("Masukkan ID menu (0 jika selesai): ");
         id = inputAngka(0, 100);
-        if (id == 0) {
+        if (id == 0)
+        {
             break;
         }
-        if (id > jmlMenu) {
+        if (id > jmlMenu)
+        {
             printf("ID menu tidak ada!\n");
             continue;
         }
-        if (adaMenu[id - 1] == 0) {
+        if (adaMenu[id - 1] == 0)
+        {
             printf("Maaf, menu itu sedang habis.\n");
             continue;
         }
@@ -229,14 +282,19 @@ void pilihMenu() {
         printf("Jumlah: ");
         qty = inputAngka(1, 99);
 
-        for (i = 0; i < jmlCart; i++) {
-            if (cartMenu[i] == id - 1) {
+        for (i = 0; i < jmlCart; i++)
+        {
+            if (cartMenu[i] == id - 1)
+            {
                 break;
             }
         }
-        if (i < jmlCart) {
+        if (i < jmlCart)
+        {
             cartQty[i] = cartQty[i] + qty;
-        } else {
+        }
+        else
+        {
             cartMenu[jmlCart] = id - 1;
             cartQty[jmlCart] = qty;
             jmlCart++;
@@ -245,7 +303,8 @@ void pilihMenu() {
     }
 }
 
-void pilihJenis() {
+void pilihJenis()
+{
     garis();
     printf("                  JENIS PESANAN\n");
     garis();
@@ -255,7 +314,8 @@ void pilihJenis() {
     jenis = inputAngka(1, 2);
 }
 
-void halamanDiskon() {
+void halamanDiskon()
+{
     char input[20];
     int i;
 
@@ -263,23 +323,29 @@ void halamanDiskon() {
     printf("                      KODE DISKON\n");
     garis();
     printf("Kode yang tersedia:\n");
-    for (i = 0; i < jmlDiskon; i++) {
-        if (aktifDiskon[i] == 1) {
+    for (i = 0; i < jmlDiskon; i++)
+    {
+        if (aktifDiskon[i] == 1)
+        {
             printf("- %s (%d%%)\n", kodeDiskon[i], persenDiskon[i]);
         }
     }
     printf("Ketik 0 kalau tidak pakai diskon.\n");
 
-    while (1) {
+    while (1)
+    {
         printf("Kode diskon: ");
         scanf("%19s", input);
-        if (strcmp(input, "0") == 0) {
+        if (strcmp(input, "0") == 0)
+        {
             persen = 0;
             strcpy(kode, "");
             return;
         }
-        for (i = 0; i < jmlDiskon; i++) {
-            if (strcmp(input, kodeDiskon[i]) == 0 && aktifDiskon[i] == 1) {
+        for (i = 0; i < jmlDiskon; i++)
+        {
+            if (strcmp(input, kodeDiskon[i]) == 0 && aktifDiskon[i] == 1)
+            {
                 persen = persenDiskon[i];
                 strcpy(kode, kodeDiskon[i]);
                 printf("Diskon %d%% berhasil dipakai.\n", persen);
@@ -290,28 +356,33 @@ void halamanDiskon() {
     }
 }
 
-long long hitungSubtotal() {
+long long hitungSubtotal()
+{
     long long sub = 0;
     int i;
-    for (i = 0; i < jmlCart; i++) {
+    for (i = 0; i < jmlCart; i++)
+    {
         sub = sub + (long long)hargaMenu[cartMenu[i]] * cartQty[i];
     }
     return sub;
 }
 
-void batalkanMenu() {
+void batalkanMenu()
+{
     int no, qty, i;
 
     garis();
     printf("                    PEMBATALAN MENU\n");
     garis();
-    for (i = 0; i < jmlCart; i++) {
+    for (i = 0; i < jmlCart; i++)
+    {
         printf("%d. %s (%d)\n", i + 1, namaMenu[cartMenu[i]], cartQty[i]);
     }
     printf("0. Kembali\n");
     printf("Pilih menu yang dibatalkan: ");
     no = inputAngka(0, jmlCart);
-    if (no == 0) {
+    if (no == 0)
+    {
         return;
     }
 
@@ -319,8 +390,10 @@ void batalkanMenu() {
     qty = inputAngka(1, cartQty[no - 1]);
     cartQty[no - 1] = cartQty[no - 1] - qty;
 
-    if (cartQty[no - 1] == 0) {
-        for (i = no - 1; i < jmlCart - 1; i++) {
+    if (cartQty[no - 1] == 0)
+    {
+        for (i = no - 1; i < jmlCart - 1; i++)
+        {
             cartMenu[i] = cartMenu[i + 1];
             cartQty[i] = cartQty[i + 1];
         }
@@ -328,11 +401,13 @@ void batalkanMenu() {
     }
 }
 
-int konfirmasi() {
+int konfirmasi()
+{
     int i, pilih;
     long long sub, diskon, total;
 
-    while (1) {
+    while (1)
+    {
         sub = hitungSubtotal();
         diskon = sub * persen / 100;
         total = sub - diskon;
@@ -340,12 +415,16 @@ int konfirmasi() {
         garis();
         printf("                    KONFIRMASI PESANAN\n");
         garis();
-        if (jenis == 1) {
+        if (jenis == 1)
+        {
             printf("Jenis pesanan: Take in\n");
-        } else {
+        }
+        else
+        {
             printf("Jenis pesanan: Take away\n");
         }
-        for (i = 0; i < jmlCart; i++) {
+        for (i = 0; i < jmlCart; i++)
+        {
             printf("%d. %-22s %d x Rp%d = Rp%lld\n", i + 1, namaMenu[cartMenu[i]], cartQty[i],
                    hargaMenu[cartMenu[i]], (long long)hargaMenu[cartMenu[i]] * cartQty[i]);
         }
@@ -361,23 +440,32 @@ int konfirmasi() {
         printf("Pilih: ");
         pilih = inputAngka(0, 3);
 
-        if (pilih == 1) {
+        if (pilih == 1)
+        {
             return 1;
-        } else if (pilih == 2) {
+        }
+        else if (pilih == 2)
+        {
             batalkanMenu();
-        } else if (pilih == 3) {
+        }
+        else if (pilih == 3)
+        {
             pilihMenu();
-        } else {
+        }
+        else
+        {
             return 0;
         }
 
-        if (jmlCart == 0) {
+        if (jmlCart == 0)
+        {
             return 0;
         }
     }
 }
 
-void pembayaran() {
+void pembayaran()
+{
     int i, metode;
     long long sub, diskon, total;
 
@@ -389,20 +477,25 @@ void pembayaran() {
     printf("                 PEMBAYARAN / STRUK\n");
     garis();
     printf("Pelanggan : %s\n", username[userLogin]);
-    if (jenis == 1) {
+    if (jenis == 1)
+    {
         printf("Jenis     : Take in\n");
-    } else {
+    }
+    else
+    {
         printf("Jenis     : Take away\n");
     }
     garis();
-    for (i = 0; i < jmlCart; i++) {
+    for (i = 0; i < jmlCart; i++)
+    {
         printf("%-22s %d x Rp%d = Rp%lld\n", namaMenu[cartMenu[i]], cartQty[i],
                hargaMenu[cartMenu[i]], (long long)hargaMenu[cartMenu[i]] * cartQty[i]);
     }
     garis();
     printf("Subtotal : Rp%lld\n", sub);
     printf("Diskon   : Rp%lld", diskon);
-    if (persen > 0) {
+    if (persen > 0)
+    {
         printf(" (%s)", kode);
     }
     printf("\nTOTAL    : Rp%lld\n", total);
@@ -424,7 +517,8 @@ void pembayaran() {
     garis();
 }
 
-void beriRating() {
+void beriRating()
+{
     garis();
     printf("                    RATING RESTORAN\n");
     garis();
@@ -434,7 +528,8 @@ void beriRating() {
     printf("Terima kasih atas ratingnya!\n");
 }
 
-int penutup() {
+int penutup()
+{
     garis();
     printf("     TERIMA KASIH TELAH MEMESAN DI RESTORAN NUSANTARA\n");
     garis();
@@ -444,10 +539,12 @@ int penutup() {
     return inputAngka(0, 1);
 }
 
-void halamanUser() {
+void halamanUser()
+{
     int lagi = 1;
 
-    while (lagi == 1) {
+    while (lagi == 1)
+    {
         jmlCart = 0;
         persen = 0;
         strcpy(kode, "");
@@ -455,12 +552,14 @@ void halamanUser() {
         printf("\nHalo %s, silakan pesan.\n", username[userLogin]);
         pilihJenis();
         pilihMenu();
-        if (jmlCart == 0) {
+        if (jmlCart == 0)
+        {
             printf("Tidak ada menu yang dipilih.\n");
             return;
         }
         halamanDiskon();
-        if (konfirmasi() == 0) {
+        if (konfirmasi() == 0)
+        {
             printf("Pesanan dibatalkan.\n");
             return;
         }
@@ -470,62 +569,80 @@ void halamanUser() {
     }
 }
 
-void ubahMenu() {
+void ubahMenu()
+{
     int id, pilih;
 
     tampilMenu();
     printf("ID menu yang diubah (0 kembali): ");
     id = inputAngka(0, jmlMenu);
-    if (id == 0) {
+    if (id == 0)
+    {
         return;
     }
 
     printf("1. Ubah nama\n2. Ubah harga\n3. Ubah status tersedia/habis\n");
     printf("Pilih: ");
     pilih = inputAngka(1, 3);
-    if (pilih == 1) {
+    if (pilih == 1)
+    {
         printf("Nama baru: ");
         scanf(" %29[^\n]", namaMenu[id - 1]);
-    } else if (pilih == 2) {
+    }
+    else if (pilih == 2)
+    {
         printf("Harga baru: Rp");
         hargaMenu[id - 1] = inputAngka(1, 10000000);
-    } else {
-        if (adaMenu[id - 1] == 1) {
+    }
+    else
+    {
+        if (adaMenu[id - 1] == 1)
+        {
             adaMenu[id - 1] = 0;
-        } else {
+        }
+        else
+        {
             adaMenu[id - 1] = 1;
         }
     }
     printf("Menu berhasil diubah.\n");
 }
 
-void banUser() {
+void banUser()
+{
     int i, no = 0, pilih;
 
     garis();
     printf("                      BAN USER\n");
     garis();
-    for (i = 0; i < jmlUser; i++) {
-        if (isAdmin[i] == 0 && diban[i] == 0) {
+    for (i = 0; i < jmlUser; i++)
+    {
+        if (isAdmin[i] == 0 && diban[i] == 0)
+        {
             no++;
             printf("%d. %s\n", no, username[i]);
         }
     }
-    if (no == 0) {
+    if (no == 0)
+    {
         printf("Tidak ada user yang bisa di-ban.\n");
         return;
     }
     printf("Pilih user (0 kembali): ");
     pilih = inputAngka(0, no);
-    if (pilih == 0) {
+    if (pilih == 0)
+    {
         return;
     }
 
     no = 0;
-    for (i = 0; i < jmlUser; i++) {
-        if (isAdmin[i] == 0 && diban[i] == 0) {
+    for (i = 0; i < jmlUser; i++)
+    {
+        if (isAdmin[i] == 0 && diban[i] == 0)
+        {
             no++;
-            if (no == pilih) {
+            if (no == pilih)
+            {
                 diban[i] = 1;
                 printf("%s berhasil di-ban.\n", username[i]);
             }
@@ -533,33 +650,41 @@ void banUser() {
     }
 }
 
-void unbanUser() {
+void unbanUser()
+{
     int i, no = 0, pilih;
 
     garis();
     printf("                    USER YANG DIBAN\n");
     garis();
-    for (i = 0; i < jmlUser; i++) {
-        if (diban[i] == 1) {
+    for (i = 0; i < jmlUser; i++)
+    {
+        if (diban[i] == 1)
+        {
             no++;
             printf("%d. %s\n", no, username[i]);
         }
     }
-    if (no == 0) {
+    if (no == 0)
+    {
         printf("Tidak ada user yang diban.\n");
         return;
     }
     printf("Pilih user (0 kembali): ");
     pilih = inputAngka(0, no);
-    if (pilih == 0) {
+    if (pilih == 0)
+    {
         return;
     }
 
     no = 0;
-    for (i = 0; i < jmlUser; i++) {
-        if (diban[i] == 1) {
+    for (i = 0; i < jmlUser; i++)
+    {
+        if (diban[i] == 1)
+        {
             no++;
-            if (no == pilih) {
+            if (no == pilih)
+            {
                 diban[i] = 0;
                 salah[i] = 0;
                 printf("%s berhasil di-unban.\n", username[i]);
@@ -568,33 +693,42 @@ void unbanUser() {
     }
 }
 
-void kelolaDiskon() {
+void kelolaDiskon()
+{
     char baru[20];
     int i, p, aktif;
 
     garis();
     printf("                  KELOLA KODE DISKON\n");
     garis();
-    for (i = 0; i < jmlDiskon; i++) {
+    for (i = 0; i < jmlDiskon; i++)
+    {
         printf("- %-10s %d%% ", kodeDiskon[i], persenDiskon[i]);
-        if (aktifDiskon[i] == 1) {
+        if (aktifDiskon[i] == 1)
+        {
             printf("(aktif)\n");
-        } else {
+        }
+        else
+        {
             printf("(nonaktif)\n");
         }
     }
     printf("Kode baru / kode yang diubah (huruf besar, 0 batal): ");
     scanf("%19s", baru);
-    if (strcmp(baru, "0") == 0) {
+    if (strcmp(baru, "0") == 0)
+    {
         return;
     }
 
-    for (i = 0; i < jmlDiskon; i++) {
-        if (strcmp(baru, kodeDiskon[i]) == 0) {
+    for (i = 0; i < jmlDiskon; i++)
+    {
+        if (strcmp(baru, kodeDiskon[i]) == 0)
+        {
             break;
         }
     }
-    if (i == jmlDiskon && jmlDiskon == 10) {
+    if (i == jmlDiskon && jmlDiskon == 10)
+    {
         printf("Kode diskon sudah penuh.\n");
         return;
     }
@@ -604,7 +738,8 @@ void kelolaDiskon() {
     printf("Aktif? (1 = ya, 0 = tidak): ");
     aktif = inputAngka(0, 1);
 
-    if (i == jmlDiskon) {
+    if (i == jmlDiskon)
+    {
         strcpy(kodeDiskon[i], baru);
         jmlDiskon++;
     }
@@ -613,33 +748,44 @@ void kelolaDiskon() {
     printf("Kode diskon disimpan.\n");
 }
 
-void laporan() {
+void laporan()
+{
     int i;
     long long pendapatan = 0, totalDiskon = 0;
 
     garis();
     printf("                    LAPORAN TRANSAKSI\n");
     garis();
-    if (jmlTransaksi == 0) {
+    if (jmlTransaksi == 0)
+    {
         printf("Belum ada transaksi.\n");
         return;
     }
     printf("%-3s %-12s %-9s %-10s %-9s %-10s %s\n", "No", "Pelanggan", "Jenis", "Subtotal",
            "Diskon", "Total", "Bayar");
     garis();
-    for (i = 0; i < jmlTransaksi; i++) {
+    for (i = 0; i < jmlTransaksi; i++)
+    {
         printf("%-3d %-12s ", i + 1, trNama[i]);
-        if (trJenis[i] == 1) {
+        if (trJenis[i] == 1)
+        {
             printf("%-9s ", "Take in");
-        } else {
+        }
+        else
+        {
             printf("%-9s ", "Take away");
         }
         printf("%-10lld %-9lld %-10lld ", trSubtotal[i], trDiskon[i], trTotal[i]);
-        if (trMetode[i] == 1) {
+        if (trMetode[i] == 1)
+        {
             printf("Tunai\n");
-        } else if (trMetode[i] == 2) {
+        }
+        else if (trMetode[i] == 2)
+        {
             printf("QRIS\n");
-        } else {
+        }
+        else
+        {
             printf("Debit\n");
         }
         pendapatan = pendapatan + trTotal[i];
@@ -651,10 +797,12 @@ void laporan() {
     printf("Total pendapatan : Rp%lld\n", pendapatan);
 }
 
-void halamanAdmin() {
+void halamanAdmin()
+{
     int pilih = -1;
 
-    while (pilih != 0) {
+    while (pilih != 0)
+    {
         garis();
         printf("                 HALAMAN ADMIN\n");
         garis();
@@ -667,37 +815,55 @@ void halamanAdmin() {
         printf("Pilih: ");
         pilih = inputAngka(0, 5);
 
-        if (pilih == 1) {
+        if (pilih == 1)
+        {
             ubahMenu();
-        } else if (pilih == 2) {
+        }
+        else if (pilih == 2)
+        {
             banUser();
-        } else if (pilih == 3) {
+        }
+        else if (pilih == 3)
+        {
             unbanUser();
-        } else if (pilih == 4) {
+        }
+        else if (pilih == 4)
+        {
             kelolaDiskon();
-        } else if (pilih == 5) {
+        }
+        else if (pilih == 5)
+        {
             laporan();
         }
     }
 }
 
-int main() {
+int main()
+{
     int pilih = -1;
 
     dataAwal();
 
-    while (pilih != 0) {
+    while (pilih != 0)
+    {
         pilih = dashboard();
-        if (pilih == 1) {
-            if (login() == 1) {
-                if (isAdmin[userLogin] == 1) {
+        if (pilih == 1)
+        {
+            if (login() == 1)
+            {
+                if (isAdmin[userLogin] == 1)
+                {
                     halamanAdmin();
-                } else {
+                }
+                else
+                {
                     halamanUser();
                 }
                 logout();
             }
-        } else if (pilih == 2) {
+        }
+        else if (pilih == 2)
+        {
             registerUser();
         }
     }
