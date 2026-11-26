@@ -98,7 +98,17 @@ void dataAwal()
     }
 
     strcpy(namaMinuman[0], "Air Mineral");
-    harga
+    hargaMinuman[0] = 3000;
+    strcpy(namaMinuman[1], "Es Teh");
+    hargaMinuman[1] = 5000;
+    strcpy(namaMinuman[2], "Es Jeruk");
+    hargaMinuman[2] = 7000;
+    strcpy(namaMinuman[3], "Jus Alpukat");
+    hargaMinuman[3] = 1200;
+    strcpy(namaMinuman[4], "Tuak");
+    hargaMinuman[4] = 10000;
+    strcpy(namaMinuman[5], "Es Campur");
+    hargaMinuman[5] = 12000;
 
     strcpy(kodeDiskon[0], "HEMAT10");
     persenDiskon[0] = 10;
