@@ -6,6 +6,8 @@ int isAdmin[50], salah[50], diban[50];
 int jmlUser = 0;
 
 char namaMenu[20][30];
+char namaMakanan[20][30];
+char namaMinuman[20][30];
 int hargaMenu[20], adaMenu[20];
 int jmlMenu = 0;
 
