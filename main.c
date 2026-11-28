@@ -4,7 +4,7 @@
 #define MAKS_USER 50
 #define MAKS_MENU 30
 #define MAKS_DISKON 10
-#define MAKS_TRANSAKSI 100
+#define MAKS_TRANSAKSI 1000
 #define MAKS_KERANJANG 30
 
 char namaPengguna[MAKS_USER][20];
